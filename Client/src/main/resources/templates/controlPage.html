@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!--<meta http-equiv="refresh" content="3"/>-->
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" text="   "></a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/sensors}" class="btn btn-outline-secondary" type="button">Control</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" text="   "></a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/sensors/control}" class="btn btn-outline-secondary" type="button">Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</head>
+<body class="justify-content-center">
+<div class="row justify-content-around">
+    <div class="col-2"></div>
+    <div class="col-3 justify-content-center">
+        <br/>
+        <div th:each="sensor:${humidity}">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body row" >
+                    <div class="col-6 justify-content-center">
+                        <h5 class="card-title" th:text="${sensor.name}"></h5>
+                        <span class="badge px-2 py-1 shadow-1-strong mb-3" th:style ="'background-color: '+${sensor.color} " th:text="humidity"></span>
+                        <br/>
+                        <br/>
+                        <a th:href="@{/sensors/control/{id}(id=${sensor.ID})}" th:style ="'background-color: '+${sensor.color} " class="btn"></a>
+                    </div>
+                    <div class="col-6 justify-content-center">
+                        <h3 class="card-text" th:text="${sensor.value}"></h3>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
+    <div class="col-3 justify-content-center">
+        <br/>
+        <div th:each="sensor:${temperature}">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body row" >
+                    <div class="col-4 justify-content-center">
+                        <h5 class="card-title" th:text="${sensor.name}"></h5>
+                        <span class="badge px-2 py-1 shadow-1-strong mb-3" th:style ="'background-color: '+${sensor.color} " th:text="temperature"></span>
+                        <br/>
+                        <br/>
+                        <a th:href="@{/sensors/{id}(id=${sensor.ID})}" th:style ="'background-color: '+${sensor.color} " class="btn">
+                            Explore</a>
+                    </div>
+                    <div class="col-8 justify-content-center">
+                        <h3 class="card-text" th:text="${sensor.value}"></h3>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
+    <div class="col-3 justify-content-center">
+        <br/>
+        <div th:each="sensor:${light}">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body row" >
+                    <div class="col-4 justify-content-center">
+                        <h5 class="card-title" th:text="${sensor.name}"></h5>
+                        <span class="badge px-2 py-1 shadow-1-strong mb-3" th:style ="'background-color: '+${sensor.color} " th:text="light"></span>
+                        <br/>
+                        <br/>
+                        <a th:href="@{/sensors/{id}(id=${sensor.ID})}" th:style ="'background-color: '+${sensor.color} " class="btn">
+                            Explore</a>
+                    </div>
+                    <div class="col-8 justify-content-center">
+                        <h3 class="card-text" th:text="${sensor.value}"></h3>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

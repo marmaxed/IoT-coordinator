@@ -1,0 +1,99 @@
+syntax = "proto3";
+package com.example.qrpc;
+
+
+//
+// Sensor type
+//
+
+enum SensorType {
+  LIGHT_SENSOR = 0;
+  HUMIDITY_SENSOR = 1;
+  TEMPERATURE_SENSOR = 2;
+}
+
+//
+// Sensor
+//
+
+message Sensor {
+
+  int32 sensor_id = 1;
+  SensorType sensor_type = 2;
+  string sensor_name = 3;
+  float value = 4;
+  int64 timestamp = 5;
+
+}
+
+message SensorDataRequest {
+
+  int32 sensor_id = 1;
+
+}
+
+message SensorDataResponse {
+
+  Sensor sensor = 1;
+
+}
+
+message SensorsDataRequest {
+
+  repeated int32 sensor_ids = 1;
+
+}
+
+message SensorsDataResponse {
+
+  repeated Sensor sensor_list = 1;
+
+}
+
+//
+// Hub polling
+//
+
+message AllSensorsListRequest {}
+
+message AllSensorsListResponse {
+
+  map<int32, SensorType> sensor_list = 1;
+
+}
+
+message AllSensorsDataRequest {}
+
+message AllSensorsDataResponse {
+
+  repeated Sensor sensors = 1;
+
+}
+
+message TimeRequest {
+
+  int32 sensor_id = 1;
+  int64 since = 2;
+  int64 until = 3;
+
+}
+
+message TimeResponse {
+
+  repeated int64 time = 1;
+  repeated float value = 2;
+
+}
+
+
+service HubInfoService {
+
+  rpc GetSensorData(SensorDataRequest) returns (SensorDataResponse);
+  rpc GetSensorsData(SensorsDataRequest) returns (SensorsDataResponse);
+
+  rpc GetAllSensorsList (AllSensorsListRequest) returns (AllSensorsListResponse);
+  rpc GetAllSensorsData (AllSensorsDataRequest) returns (AllSensorsDataResponse);
+
+  rpc GetValuesByTimeStamp (TimeRequest) returns (TimeResponse);
+
+}
