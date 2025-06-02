@@ -24,10 +24,9 @@ public class Client {
         File clientCertFile = null;
         File clientKeyFile = null;
         try {
-           serverCACertFile = new File("C:\\IotClient\\src\\main\\resources\\cert\\ca-cert.pem");
-           clientCertFile = new File("C:\\IotClient\\src\\main\\resources\\cert\\client-cert.pem");
-           clientKeyFile = new File("C:\\IotClient\\src\\main\\resources\\cert\\client-key.pem");
-            System.out.println("first");
+           serverCACertFile = new File("/src/main/resources/cert/ca-cert.pem");
+           clientCertFile = new File("/src/main/resources/cert/client-cert.pem");
+           clientKeyFile = new File("/src/main/resources/cert/client-key.pem");
         } catch (Exception e) {
 
         }
@@ -38,7 +37,7 @@ public class Client {
                     .trustManager(serverCACertFile)
                     .build();
         } catch (Exception e) {
-            System.out.println("second");
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -57,14 +56,6 @@ public class Client {
                 .build();
     }
     public static HubInfoServiceGrpc.HubInfoServiceBlockingStub myStub = HubInfoServiceGrpc.newBlockingStub(channel);
-
-   /* static {
-        try {
-            myStub = HubInfoServiceGrpc.newBlockingStub(simpleChannel());
-        } catch (SSLException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
 
     public Hub.Sensor getSensorById(Integer id) {
         Hub.SensorDataRequest request = Hub.SensorDataRequest.newBuilder().setSensorId(id).build();
