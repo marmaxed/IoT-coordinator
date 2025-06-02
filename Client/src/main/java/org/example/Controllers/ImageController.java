@@ -68,16 +68,6 @@ public class ImageController {
                 .body(new InputStreamResource(new ByteArrayInputStream(Files.readAllBytes(image.toPath()))));
     }
 
-    /*@SneakyThrows
-    @GetMapping("/images")
-    private ResponseEntity<?> getImageById(){
-        File image = new File("src/main/resources/script.png");
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_PNG)
-                .contentLength(image.length())
-                .body(new InputStreamResource(new ByteArrayInputStream(Files.readAllBytes(image.toPath()))));
-    }*/
-
     @SneakyThrows
     @GetMapping("/reload")
     private ResponseEntity<?> getReoloadImg(){
